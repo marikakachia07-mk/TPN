@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --brand-dark: #07212f;
-            --brand-green: #064e3b;
-            --green-hover: #022c22;
-            --green-soft: #f0fdf4;
-            --ink: #1e293b;
-            --muted: #64748b;
-            --bg: #f8fafc;
-            --surface: #ffffff;
+            --brand-green: #0d7a46;       /* ოქროს შუალედი — არც ზედმეტად ღია და არც მუქი */
+            --brand-green-light: #0f8c50;
+            --green-tint: #f2f8f4;        /* მშვიდი, სუფთა მწვანე-თეთრი ფონი */
+            --green-badge: #e3f2e8;       /* ნაზი მწვანე ბეჯი */
+            --ink: #0f172a;
+            --muted: #475569;
+            --bg: #ffffff;
             --border: #cbd5e1;
-            --radius: 20px;
-            --radius-sm: 12px;
-            --shadow: 0 10px 30px rgba(7, 33, 47, 0.05);
-            --transition: all 0.3s ease;
+            --radius: 26px;               /* სრულად მომრგვალებული, რბილი კუთხეები */
+            --radius-sm: 18px;
+            --shadow-sm: 0 6px 24px rgba(13, 122, 70, 0.05);
+            --shadow-md: 0 16px 35px rgba(13, 122, 70, 0.1);
+            --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -38,17 +38,18 @@
             color: var(--ink);
             font-size: 15px;
             line-height: 1.65;
+            overflow-x: hidden;
         }
 
         .container {
             width: 90%;
-            max-width: 1100px;
+            max-width: 1160px;
             margin: 0 auto;
         }
 
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
@@ -66,60 +67,54 @@
         .brand {
             text-decoration: none;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            align-items: center;
+            gap: 10px;
         }
 
         .brand-logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: var(--brand-dark);
+            color: var(--ink);
+            letter-spacing: 0.5px;
         }
 
         .brand-logo span {
             color: var(--brand-green);
         }
 
-        .brand-tag {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--muted);
-            text-transform: uppercase;
-        }
-
         .nav-menu {
             list-style: none;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
         }
 
         .nav-menu a {
             text-decoration: none;
-            color: var(--ink);
+            color: var(--muted);
             font-size: 13.5px;
             font-weight: 600;
-            padding: 8px 16px;
+            padding: 9px 16px;
             border-radius: 50px;
-            border: 1px solid transparent;
+            border: 1px solid var(--border);
+            background: #ffffff;
             transition: var(--transition);
         }
 
-        .nav-menu a:hover {
-            border-color: var(--brand-green);
+        .nav-menu a:hover, .nav-menu a.active {
             color: var(--brand-green);
-            background: var(--green-soft);
+            border-color: var(--brand-green);
+            background: var(--green-badge);
         }
 
-        .mini-btn {
-            background: var(--surface);
-            border: 1px solid var(--brand-green);
+        .nav-cta {
+            background: #ffffff;
             color: var(--brand-green);
-            font-size: 13px;
+            border: 1px solid var(--brand-green);
+            font-size: 13.5px;
             font-weight: 700;
-            padding: 10px 20px;
+            padding: 9px 22px;
             border-radius: 50px;
-            cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -127,16 +122,16 @@
             transition: var(--transition);
         }
 
-        .mini-btn:hover {
+        .nav-cta:hover {
             background: var(--brand-green);
             color: #ffffff;
         }
 
-        /* გვერდითი მცურავი ვიჯეტები */
+        /* Floating Widgets */
         .side-floating-widgets {
             position: fixed;
             right: 24px;
-            bottom: 30px;
+            bottom: 28px;
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -148,8 +143,8 @@
             height: 50px;
             border-radius: 50%;
             background: #ffffff;
-            color: var(--brand-dark);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            color: var(--brand-green);
+            box-shadow: var(--shadow-md);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,282 +165,357 @@
             font-size: 24px;
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
-            padding: 80px 0;
-            background: var(--surface);
+            padding: 80px 0 90px;
+            background: #ffffff;
             border-bottom: 1px solid var(--border);
-            text-align: center;
         }
 
-        .hero-content {
-            max-width: 750px;
-            margin: 0 auto;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 48px;
+            align-items: center;
         }
 
         .pill {
-            display: inline-block;
-            font-size: 11.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
             color: var(--brand-green);
-            background: var(--green-soft);
-            padding: 6px 16px;
+            background: var(--green-badge);
+            padding: 6px 18px;
             border-radius: 50px;
-            margin-bottom: 16px;
-            border: 1px solid #d1fae5;
+            margin-bottom: 20px;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--brand-green);
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-size: clamp(2rem, 3.4vw, 2.8rem);
             font-weight: 800;
             line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
             color: var(--brand-green);
-            margin-bottom: 16px;
+            display: block;
         }
 
         .hero p {
             color: var(--muted);
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 15.5px;
+            margin-bottom: 32px;
+            max-width: 560px;
         }
 
         .btn-row {
             display: flex;
-            justify-content: center;
-            gap: 12px;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
-        .btn {
+        .btn-box {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 15px 26px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 700;
             text-decoration: none;
             transition: var(--transition);
             cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .btn-solid {
-            background: var(--surface);
+            border: 1px solid var(--border);
+            background: #ffffff;
             color: var(--brand-green);
-            border-color: var(--brand-green);
+            min-width: 240px;
         }
 
-        .btn-solid:hover {
+        .btn-box:hover {
+            border-color: var(--brand-green);
+            background: var(--green-badge);
+            transform: translateY(-2px);
+        }
+
+        .btn-box.primary {
             background: var(--brand-green);
             color: #ffffff;
-        }
-
-        .btn-ghost {
-            background: var(--surface);
-            color: var(--brand-green);
             border-color: var(--brand-green);
         }
 
-        .btn-ghost:hover {
-            background: var(--green-soft);
+        .btn-box.primary:hover {
+            background: var(--brand-green-light);
         }
 
-        /* Partners Marquee Slider */
-        .partners-slider {
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-            width: 100%;
-            padding: 18px 0;
-            background: var(--surface);
+        /* Hero Right Visual Panel */
+        .hero-visual {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .hv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
             border-bottom: 1px solid var(--border);
         }
 
-        .partners-track {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 25s linear infinite;
-        }
-
-        .partners-slider:hover .partners-track {
-            animation-play-state: paused;
-        }
-
-        .partner-item {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 40px;
+        .hv-title {
             font-size: 14px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .hv-badge {
+            background: var(--green-badge);
+            color: var(--brand-green);
+            font-size: 11.5px;
             font-weight: 700;
-            color: var(--muted);
-            opacity: 0.7;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .hv-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            background: #f8fafc;
+            border: 1px solid var(--border);
             transition: var(--transition);
         }
 
-        .partner-item:hover {
-            opacity: 1;
-            color: var(--brand-green);
+        .hv-item:hover {
+            border-color: var(--brand-green);
+            background: var(--green-tint);
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .hv-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: var(--green-badge);
+            color: var(--brand-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .hv-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+
+        .hv-item p {
+            font-size: 12.5px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.45;
         }
 
         /* Sections */
         .section {
-            padding: 70px 0;
+            padding: 85px 0;
             border-bottom: 1px solid var(--border);
+            background: #ffffff;
         }
 
-        .section-white {
-            background: var(--surface);
+        .section-dark {
+            background: var(--brand-green);
+            color: #ffffff;
+        }
+
+        .section-dark .sec-title,
+        .section-dark .sec-sub,
+        .section-dark h3,
+        .section-dark p {
+            color: #ffffff;
+        }
+
+        .section-dark .sec-title span {
+            color: #a3e6b8;
+        }
+
+        .section-alt {
+            background: var(--green-tint);
         }
 
         .sec-head {
-            margin-bottom: 35px;
-            max-width: 700px;
+            margin-bottom: 42px;
+            max-width: 680px;
         }
 
         .sec-title {
-            font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+            font-size: clamp(1.6rem, 2.5vw, 2.15rem);
             font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+
+        .sec-title span {
             color: var(--brand-green);
-            margin-bottom: 8px;
         }
 
         .sec-sub {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--muted);
         }
 
-        /* About & Team */
-        .about-intro {
-            background: var(--surface);
+        /* About Banner */
+        .about-banner {
+            background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px 32px;
+            padding: 32px 38px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 24px;
-            margin-bottom: 35px;
-            box-shadow: var(--shadow);
+            gap: 28px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .about-intro p {
-            font-size: 14px;
+        .about-banner p {
+            font-size: 15px;
             color: var(--muted);
         }
 
-        .stat-pill {
-            text-align: center;
-            background: var(--green-soft);
-            border: 1px solid #d1fae5;
-            padding: 14px 24px;
+        .about-banner strong {
+            color: var(--brand-green);
+        }
+
+        .stat-box {
+            background: var(--green-tint);
+            border: 1px solid var(--border);
+            padding: 18px 30px;
             border-radius: var(--radius-sm);
+            text-align: center;
             flex-shrink: 0;
         }
 
-        .stat-pill strong {
+        .stat-box strong {
             display: block;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             color: var(--brand-green);
+            line-height: 1.1;
         }
 
-        .stat-pill span {
-            font-size: 11.5px;
+        .stat-box span {
+            font-size: 12px;
             font-weight: 700;
-            color: var(--brand-green);
+            color: var(--muted);
         }
 
-        /* სალომეს კარტა */
+        /* Founder Card */
         .founder-card {
-            background: var(--surface);
-            border: 1.5px solid var(--brand-green);
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 6px solid var(--brand-green);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 38px;
             display: grid;
-            grid-template-columns: 190px 1fr;
+            grid-template-columns: 200px 1fr;
             gap: 32px;
             align-items: start;
-            margin-bottom: 35px;
-            box-shadow: var(--shadow);
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-sm);
             position: relative;
         }
 
-        .founder-tag {
+        .founder-badge {
             position: absolute;
-            top: 24px;
-            right: 24px;
-            background: var(--green-soft);
+            top: 28px;
+            right: 32px;
+            background: var(--green-badge);
             color: var(--brand-green);
-            font-size: 11.5px;
-            font-weight: 800;
+            font-size: 12px;
+            font-weight: 700;
             padding: 6px 16px;
             border-radius: 50px;
-            border: 1px solid #d1fae5;
         }
 
         .founder-img {
-            width: 190px;
-            height: 210px;
-            border-radius: var(--radius);
+            width: 200px;
+            height: 220px;
+            border-radius: var(--radius-sm);
             overflow: hidden;
-            background: #f1f5f9;
+            background: #f2f8f4;         /* ნაზი მწვანე-ნაცრისფერი ფონი თეთრი ზოლების ნაცვლად */
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
         .founder-img img, .member-img img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center center;
+            object-fit: cover;           /* ავსებს სრულად სივრცეს ყოველგვარი თეთრი ზოლების გარეშე */
+            object-position: center top; /* აფიქსირებს ფოტოს ცენტრალურ ნაწილს */
         }
 
         .founder-info h3 {
             font-size: 22px;
             font-weight: 800;
-            color: var(--brand-green);
+            color: var(--ink);
             margin-bottom: 4px;
         }
 
-        .role-text {
+        .role-label {
             font-size: 13.5px;
             font-weight: 700;
-            color: var(--muted);
-            margin-bottom: 14px;
+            color: var(--brand-green);
+            margin-bottom: 16px;
         }
 
-        .founder-full-bio {
+        .founder-bio {
             font-size: 14px;
             color: var(--muted);
             line-height: 1.75;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 12px;
         }
 
-        .team-row {
+        /* Team Grid */
+        .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
         .member-card {
-            background: var(--surface);
+            background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -454,16 +524,19 @@
 
         .member-card:hover {
             border-color: var(--brand-green);
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         .member-img {
             width: 100%;
-            height: 200px;
-            background: #f1f5f9;
+            height: 210px;
+            background: #f2f8f4;         /* ნაზი მწვანე-ნაცრისფერი ფონი თეთრი ზოლების ნაცვლად */
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .member-body {
@@ -475,120 +548,33 @@
         }
 
         .member-body h4 {
-            font-size: 17px;
+            font-size: 17.5px;
             font-weight: 800;
-            color: var(--brand-green);
+            color: var(--ink);
             margin-bottom: 4px;
         }
 
-        .details-link {
-            background: none;
-            border: none;
-            padding: 0;
+        .details-btn {
+            background: var(--green-tint);
+            border: 1px solid var(--border);
             color: var(--brand-green);
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 50px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            margin-top: 14px;
+            margin-top: 16px;
             transition: var(--transition);
+            width: fit-content;
         }
 
-        .details-link:hover {
-            gap: 10px;
-            color: var(--brand-dark);
-        }
-
-        /* Modal Popup */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(7, 33, 47, 0.5);
-            backdrop-filter: blur(6px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-backdrop.active {
-            display: flex;
-        }
-
-        .modal-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            max-width: 600px;
-            width: 100%;
-            padding: 35px;
-            position: relative;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--ink);
-            transition: var(--transition);
-        }
-
-        .modal-close:hover {
+        .details-btn:hover {
             background: var(--brand-green);
-            color: #fff;
-            border-color: var(--brand-green);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .modal-avatar {
-            width: 85px;
-            height: 85px;
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center center;
-        }
-
-        .modal-content {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.75;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
+            color: #ffffff;
         }
 
         /* Services Grid */
@@ -599,42 +585,58 @@
         }
 
         .srv-card {
-            background: var(--bg);
+            background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 26px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
 
         .srv-card:hover {
             border-color: var(--brand-green);
-            background: var(--surface);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .srv-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--green-badge);
+            color: var(--brand-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 18px;
         }
 
         .srv-card h3 {
-            font-size: 17px;
+            font-size: 17.5px;
             font-weight: 800;
-            color: var(--brand-green);
+            color: var(--ink);
             margin-bottom: 10px;
         }
 
         .srv-card p {
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .srv-details {
             display: none;
-            font-size: 13px;
-            background: var(--green-soft);
-            border: 1px solid #d1fae5;
-            padding: 14px;
+            font-size: 13.5px;
+            background: var(--green-tint);
+            border: 1px solid var(--border);
+            padding: 16px;
             border-radius: var(--radius-sm);
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            color: var(--ink);
         }
 
         .srv-card.open .srv-details {
@@ -642,14 +644,17 @@
         }
 
         .srv-details ul {
-            padding-left: 16px;
+            padding-left: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .srv-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 14px;
+            padding-top: 16px;
             border-top: 1px solid var(--border);
         }
 
@@ -660,6 +665,9 @@
             font-weight: 700;
             font-size: 13.5px;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .srv-link {
@@ -667,114 +675,186 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
+            transition: var(--transition);
         }
 
         .srv-link:hover {
             color: var(--brand-green);
         }
 
-        /* Mini Grid & Sectors */
-        .mini-grid-3 {
+        /* How We Work */
+        .process-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
-        .info-tile {
-            background: var(--surface);
+        .process-card {
+            background: #ffffff;
             border: 1px solid var(--border);
-            border-top: 4px solid var(--brand-green);
-            padding: 24px;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .info-tile h4 {
-            font-size: 16px;
+        .step-num {
+            display: inline-block;
+            font-size: 12px;
             font-weight: 800;
             color: var(--brand-green);
+            background: var(--green-badge);
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .process-card h4 {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--ink);
             margin-bottom: 8px;
         }
 
-        .info-tile p {
-            font-size: 13.5px;
+        .process-card p {
+            font-size: 14px;
             color: var(--muted);
         }
 
-        .sector-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 24px;
-        }
-
-        .chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--brand-green);
-        }
-
-        /* Candidates Strip */
-        .cand-strip {
+        /* Candidates Banner */
+        .cand-banner {
             background: var(--brand-green);
             color: #ffffff;
             border-radius: var(--radius);
-            padding: 36px 40px;
+            padding: 46px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 24px;
-            box-shadow: var(--shadow);
+            gap: 28px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
         }
 
-        .cand-strip h3 {
-            font-size: 20px;
+        .cand-banner .pill {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            margin-bottom: 14px;
+        }
+
+        .cand-banner h3 {
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            color: #ffffff;
         }
 
-        .cand-strip p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 16px;
+        .cand-banner p {
+            font-size: 14.5px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 560px;
+        }
+
+        .btn-white {
+            background: #ffffff;
+            color: var(--brand-green);
+            border-color: #ffffff;
+            flex-shrink: 0;
+            border-radius: 50px;
+            padding: 15px 28px;
+        }
+
+        .btn-white:hover {
+            background: var(--green-tint);
+            transform: translateY(-2px);
+        }
+
+        /* Partners Marquee */
+        .partners-slider {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            padding: 20px 0;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .partners-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 28s linear infinite;
+        }
+
+        .partners-slider:hover .partners-track {
+            animation-play-state: paused;
+        }
+
+        .partner-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 36px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .partner-item i {
+            color: var(--brand-green);
+            font-size: 8px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Contact & Form */
         .contact-grid {
             display: grid;
             grid-template-columns: 0.9fr 1.1fr;
-            gap: 24px;
+            gap: 28px;
         }
 
         .contact-card, .form-card {
-            background: var(--surface);
+            background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
+            padding: 36px;
+            box-shadow: var(--shadow-sm);
         }
 
         .contact-links {
-            margin-top: 20px;
-            padding-top: 18px;
+            margin-top: 22px;
+            padding-top: 20px;
             border-top: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .contact-links a {
-            color: var(--brand-green);
-            font-weight: 700;
-            font-size: 14px;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 14.5px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .contact-links a i {
+            width: 38px;
+            height: 38px;
+            border-radius: 50px;
+            background: var(--green-tint);
+            color: var(--brand-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-links a:hover {
+            color: var(--brand-green);
         }
 
         .form-row {
@@ -790,10 +870,10 @@
 
         .f-group label {
             display: block;
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 700;
             margin-bottom: 6px;
-            color: var(--brand-green);
+            color: var(--ink);
         }
 
         .f-input {
@@ -801,23 +881,113 @@
             padding: 12px 16px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
-            background: var(--bg);
+            background: #f8fafc;
             color: var(--ink);
-            font-size: 13.5px;
+            font-size: 14px;
             transition: var(--transition);
         }
 
         .f-input:focus {
             outline: none;
             border-color: var(--brand-green);
-            background: var(--surface);
+            background: #ffffff;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 100%;
+            padding: 38px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--brand-green);
+            color: #ffffff;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-avatar {
+            width: 82px;
+            height: 82px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: #f2f8f4;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .modal-content {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.75;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         /* Footer */
         footer {
-            background: var(--surface);
-            padding: 24px 0;
-            font-size: 12.5px;
+            background: #ffffff;
+            padding: 28px 0;
+            font-size: 13px;
             color: var(--muted);
             border-top: 1px solid var(--border);
         }
@@ -828,18 +998,21 @@
             align-items: center;
         }
 
-        @media (max-width: 900px) {
-            .hero-wrap, .about-intro, .founder-card, .team-row,
-            .services-grid, .mini-grid-3, .cand-strip, .contact-grid {
+        @media (max-width: 960px) {
+            .hero-grid, .about-banner, .founder-card, .team-grid,
+            .services-grid, .process-grid, .cand-banner, .contact-grid {
                 grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: flex-start;
             }
             .nav-menu { display: none; }
+            .founder-badge { position: static; margin-bottom: 12px; display: inline-block; }
         }
     </style>
 </head>
 <body>
 
-    <!-- გვერდითი მცურავი ვიჯეტები -->
+    <!-- Floating Widgets -->
     <div class="side-floating-widgets">
         <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20კონსულტაცია" target="_blank" class="side-float-btn whatsapp" title="მოგვწერეთ WhatsApp-ში">
             <i class="fa-brands fa-whatsapp"></i>
@@ -853,33 +1026,66 @@
     <header>
         <div class="container nav-bar">
             <a href="#main" class="brand">
-                <span class="brand-logo">TP<span>N</span></span>
-                <span class="brand-tag">Talent Partner Network</span>
+                <div class="brand-logo">TP<span>N</span></div>
             </a>
 
             <ul class="nav-menu">
+                <li><a href="#main" class="active">მთავარი</a></li>
                 <li><a href="#about">ჩვენ შესახებ</a></li>
                 <li><a href="#services">სერვისები</a></li>
                 <li><a href="#expertise">ექსპერტიზა</a></li>
+                <li><a href="#candidates">კანდიდატებისთვის</a></li>
                 <li><a href="#contact">კონტაქტი</a></li>
             </ul>
 
-            <div class="nav-actions">
-                <a href="#meeting" class="mini-btn">შეხვედრა</a>
-            </div>
+            <a href="#meeting" class="nav-cta">შეხვედრა <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i></a>
         </div>
     </header>
 
-    <!-- მთავარი (Hero) -->
+    <!-- Hero -->
     <section id="main" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <span class="pill">ტალანტების ეკოსისტემა</span>
-                <h1>ტალანტების ეკოსისტემა. ბიზნესის ახალი შესაძლებლობები.</h1>
-                <p>სწორი ადამიანები, ძლიერი ლიდერები და გამართული ორგანიზაცია თქვენი ბიზნესის წარმატებისთვის.</p>
+        <div class="container hero-grid">
+            <div>
+                <div class="pill"><span class="pill-dot"></span> ტალანტების ეკოსისტემა</div>
+                <h1>ტალანტების ეკოსისტემა. <span>ბიზნესის ახალი შესაძლებლობები.</span></h1>
+                <p>სწორი ადამიანები, ძლიერი ლიდერები და გამართული ორგანიზაცია. ვეხმარებით ბიზნესს, ადამიანებთან დაკავშირებული გადაწყვეტილებები განვითარების შესაძლებლობად აქციოს.</p>
                 <div class="btn-row">
-                    <a href="#meeting" class="btn btn-solid">დაჯავშნეთ შეხვედრა ↗</a>
-                    <a href="https://wa.me/995577440711?text=გამარჯობა,%20მაინტერესებს%20TPN-ის%20სერვისები" target="_blank" class="btn btn-ghost"><i class="fa-brands fa-whatsapp"></i> WhatsApp-ში წწერა</a>
+                    <a href="#meeting" class="btn-box primary">
+                        <span>დაჯავშნეთ შეხვედრა</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="btn-box">
+                        <span>გაეცანით სერვისებს</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hv-header">
+                    <span class="hv-title">რატომ Talent Partner Network?</span>
+                    <span class="hv-badge">30+ ექსპერტი</span>
+                </div>
+                <div class="hv-item">
+                    <div class="hv-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <div>
+                        <h4>სრული HR ეკოსისტემა</h4>
+                        <p>რეკრუტინგი, ბიზნეს პარტნიორობა და აუტსორსინგი ერთ სივრცეში.</p>
+                    </div>
+                </div>
+                <div class="hv-item">
+                    <div class="hv-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h4>ბიზნესზე მორგებული სტრატეგია</h4>
+                        <p>გადაწყვეტილებები, რომლებიც პირდაპირ პასუხობს კომპანიის ზრდის მიზნებს.</p>
+                    </div>
+                </div>
+                <div class="hv-item">
+                    <div class="hv-icon"><i class="fa-solid fa-award"></i></div>
+                    <div>
+                        <h4>საერთაშორისო სტანდარტი</h4>
+                        <p>SPHRi® და ICF სერტიფიცირებული პრაქტიკოსი ლიდერების გუნდი.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -889,39 +1095,38 @@
     <section id="about" class="section">
         <div class="container">
             <div class="sec-head">
-                <span class="pill">ჩვენ შესახებ</span>
-                <h2 class="sec-title">ბიზნესის განვითარება ადამიანებით იწყება.</h2>
+                <div class="pill"><span class="pill-dot"></span> ჩვენ შესახებ</div>
+                <h2 class="sec-title">ბიზნესის განვითარება <span>ადამიანებით იწყება.</span></h2>
                 <p class="sec-sub">ვაერთიანებთ საუკეთესო HR ექსპერტებს თქვენი გუნდის გასაძლიერებლად.</p>
             </div>
 
-            <div class="about-intro">
+            <div class="about-banner">
                 <p><strong>Talent Partner Network (TPN)</strong> აერთიანებს გამოცდილ პროფესიონალებს, რათა კომპანიამ მიიღოს სრული HR მხარდაჭერა ერთიანი პარტნიორისგან.</p>
-                <div class="stat-pill">
+                <div class="stat-box">
                     <strong>30+</strong>
-                    <span>პარტნიორი</span>
+                    <span>პარტნიორი ექსპერტი</span>
                 </div>
             </div>
 
             <!-- დამფუძნებელი (სალომე ერაგია) -->
             <div class="founder-card">
-                <span class="founder-tag">დამფუძნებელი</span>
+                <span class="founder-badge">დამფუძნებელი</span>
                 <div class="founder-img">
                     <img src="image/image3.jpeg" alt="სალომე ერაგია">
                 </div>
                 <div class="founder-info">
                     <h3>სალომე ერაგია</h3>
-                    <div class="role-text">დამფუძნებელი და მმართველი პარტნიორი</div>
-                    <div class="founder-full-bio">
-                        <p>აქვს ადამიანური რესურსების (HR) დეპარტამენტის ხელმძღვანელობის მრავალწლიანი და წარმატებული გამოცდილება ადგილობრივ და საერთაშორისო ორგანიზაციებში.</p>
-                        <p>არის წამყვანი ადგილობრივი და საერთაშორისო ორგანიზაციების მიწვეული HR ექსპერტი, რომელიც წარმართავს სტრატეგიულ პროექტებსა და ორგანიზაციულ ტრანსფორმაციას.</p>
-                        <p>აქტიურ აკადემიურ და პროფესიულ საქმიანობასთან ერთად, არის ალტე უნივერსიტეტის მიწვეული ლექტორი და სერტიფიცირებული კარიერის კონსულტანტი.</p>
+                    <div class="role-label">დამფუძნებელი და მმართველი პარტნიორი</div>
+                    <div class="founder-bio">
+                        <p>სალომე ერაგიას პროფესიული გამოცდილება მოიცავს HR დეპარტამენტის ხელმძღვანელობას, ადგილობრივი და საერთაშორისო კომპანიების კონსულტირებასა და პროფესიონალების კარიერულ განვითარებას. სხვადასხვა სექტორში დაგროვილი გამოცდილება საშუალებას აძლევს, ადამიანური რესურსების მართვის გადაწყვეტილებები ბიზნესის მიზნებსა და გუნდის საჭიროებებს შეუსაბამოს.</p>
+                        <p>როგორც მიწვეული HR ექსპერტი, სალომე ორგანიზაციებს ეხმარება HR სტრატეგიისა და პროცესების განვითარებაში, გუნდების გაძლიერებასა და ორგანიზაციული ცვლილებების მართვაში. პარალელურად, უნივერსიტეტებსა და პროფესიულ სასწავლებლებში მიწვეული კარიერის კონსულტანტისა და ტრენერის როლში, სტუდენტებსა და პროფესიონალებს მხარს უჭერს კარიერის დაგეგმვაში, დასაქმებისთვის მომზადებასა და პროფესიული უნარების განვითარებაში.</p>
+                        <p>სალომემ Talent Partner Network დააფუძნა როგორც ტალანტების ეკოსისტემა, რომელიც HR პროფესიონალებისა და სხვადასხვა მიმართულების ექსპერტების ცოდნასა და გამოცდილებას აერთიანებს. მისი მიზანია, ბიზნესებს შესთავაზოს მათ საჭიროებებზე მორგებული მხარდაჭერა - ტალანტების მოზიდვიდან ორგანიზაციულ განვითარებამდე. სალომეს მუშაობის საფუძველია ბიზნესის სიღრმისეული გააზრება, პარტნიორული ურთიერთობები და პრაქტიკული, შედეგზე ორიენტირებული გადაწყვეტილებები.</p>
                     </div>
                 </div>
             </div>
 
             <!-- გუნდი -->
-            <div class="team-row">
-                <!-- 1. ნათია სირაძე -->
+            <div class="team-grid">
                 <div class="member-card">
                     <div class="member-img">
                         <img src="image/image2.jpeg" alt="ნათია სირაძე">
@@ -929,13 +1134,12 @@
                     <div class="member-body">
                         <div>
                             <h4>ნათია სირაძე</h4>
-                            <div class="role-text">HR ბიზნეს პარტნიორი</div>
+                            <div class="role-label">HR ბიზნეს პარტნიორი</div>
                         </div>
-                        <button class="details-link" onclick="openMemberModal('natia')">იხილეთ დეტალები →</button>
+                        <button class="details-btn" onclick="openMemberModal('natia')">იხილეთ დეტალები →</button>
                     </div>
                 </div>
 
-                <!-- 2. შორენა ქუთათელაძე -->
                 <div class="member-card">
                     <div class="member-img">
                         <img src="image/image1.jpeg" alt="შორენა ქუთათელაძე">
@@ -943,13 +1147,12 @@
                     <div class="member-body">
                         <div>
                             <h4>შორენა ქუთათელაძე</h4>
-                            <div class="role-text">HR ბიზნეს პარტნიორი</div>
+                            <div class="role-label">HR ბიზნეს პარტნიორი</div>
                         </div>
-                        <button class="details-link" onclick="openMemberModal('shorena')">იხილეთ დეტალები →</button>
+                        <button class="details-btn" onclick="openMemberModal('shorena')">იხილეთ დეტალები →</button>
                     </div>
                 </div>
 
-                <!-- 3. მარიამ ედიბერიძე -->
                 <div class="member-card">
                     <div class="member-img">
                         <img src="image/image0.jpeg" alt="მარიამ ედიბერიძე">
@@ -957,9 +1160,9 @@
                     <div class="member-body">
                         <div>
                             <h4>მარიამ ედიბერიძე</h4>
-                            <div class="role-text">L&D მიმართულების ლიდი</div>
+                            <div class="role-label">L&D მიმართულების ლიდი</div>
                         </div>
-                        <button class="details-link" onclick="openMemberModal('mariam')">იხილეთ დეტალები →</button>
+                        <button class="details-btn" onclick="openMemberModal('mariam')">იხილეთ დეტალები →</button>
                     </div>
                 </div>
             </div>
@@ -967,16 +1170,17 @@
     </section>
 
     <!-- სერვისები -->
-    <section id="services" class="section section-white">
+    <section id="services" class="section section-alt">
         <div class="container">
             <div class="sec-head">
-                <span class="pill">ჩვენი სერვისები</span>
-                <h2 class="sec-title">შექმენით ძლიერი გუნდი და ორგანიზაცია</h2>
+                <div class="pill"><span class="pill-dot"></span> ჩვენი სერვისები</div>
+                <h2 class="sec-title">შექმენით <span>ძლიერი გუნდი</span> და ორგანიზაცია</h2>
             </div>
 
             <div class="services-grid">
                 <div class="srv-card">
                     <div>
+                        <div class="srv-icon"><i class="fa-solid fa-user-tie"></i></div>
                         <h3>რეკრუტინგი და Executive Search</h3>
                         <p>იპოვეთ საუკეთესო პროფესიონალები თქვენი ბიზნესის ზრდისთვის.</p>
                         <div class="srv-details">
@@ -995,6 +1199,7 @@
 
                 <div class="srv-card">
                     <div>
+                        <div class="srv-icon"><i class="fa-solid fa-handshake"></i></div>
                         <h3>HR ბიზნეს პარტნიორობა</h3>
                         <p>მიიღეთ პროფესიონალური ხედვა ადამიანებთან დაკავშირებულ გადაწყვეტილებებზე.</p>
                         <div class="srv-details">
@@ -1013,6 +1218,7 @@
 
                 <div class="srv-card">
                     <div>
+                        <div class="srv-icon"><i class="fa-solid fa-gears"></i></div>
                         <h3>HR აუტსორსინგი</h3>
                         <p>მიეცით ყოველდღიურ HR პროცესებს სისტემური და გამართული მართვა.</p>
                         <div class="srv-details">
@@ -1036,82 +1242,79 @@
     <section id="expertise" class="section">
         <div class="container">
             <div class="sec-head">
-                <span class="pill">ექსპერტიზა</span>
-                <h2 class="sec-title">როგორ ვმუშაობთ</h2>
+                <div class="pill"><span class="pill-dot"></span> ექსპერტიზა</div>
+                <h2 class="sec-title">როგორ <span>ვმუშაობთ</span></h2>
             </div>
-            <div class="mini-grid-3">
-                <div class="info-tile">
+            <div class="process-grid">
+                <div class="process-card">
+                    <span class="step-num">ნაბიჯი 01</span>
                     <h4>საჭიროების ანალიზი</h4>
                     <p>ვიკვლევთ თქვენს ბიზნეს მიზნებს და ვგეგმავთ შესაბამის HR რესურსებს.</p>
                 </div>
-                <div class="info-tile">
+                <div class="process-card">
+                    <span class="step-num">ნაბიჯი 02</span>
                     <h4>ერთიანი კოორდინაცია</h4>
                     <p>გყავთ მთავარი კონტაქტი, რომელიც მართავს ყველა პროცესს.</p>
                 </div>
-                <div class="info-tile">
+                <div class="process-card">
+                    <span class="step-num">ნაბიჯი 03</span>
                     <h4>მოქნილი ფორმატები</h4>
                     <p>პროექტული მუშაობა, რეგულარული პარტნიორობა ან სრული აუტსორსინგი.</p>
                 </div>
-            </div>
-            <div class="sector-chips">
-                <span class="chip">ჯანდაცვა</span>
-                <span class="chip">ფინანსები</span>
-                <span class="chip">მშენებლობა</span>
-                <span class="chip">ლოგისტიკა</span>
-                <span class="chip">საცალო ვაჭრობა</span>
             </div>
         </div>
     </section>
 
     <!-- კანდიდატები -->
-    <section id="candidates" class="section section-white">
+    <section id="candidates" class="section section-dark">
         <div class="container">
-            <div class="cand-strip">
+            <div class="cand-banner" style="background: transparent; border: none; padding: 0; box-shadow: none;">
                 <div>
-                    <span class="pill" style="background: rgba(255,255,255,0.15); color: #ffffff; border-color: rgba(255,255,255,0.3);">Talent Network</span>
-                    <h3>გაგვიზიარეთ თქვენი პროფესიული გამოცდილება</h3>
-                    <p>გამოგვიგზავნეთ CV და შესაბამისი ვაკანსიის გაჩენისას დაგიკავშირდებით.</p>
-                    <a href="mailto:career.tpn.ge@gmail.com?subject=CV%20-%20TPN" class="btn" style="background: #ffffff; color: var(--brand-green);">CV-ს გაზიარება ↗</a>
+                    <div class="pill" style="background: rgba(255,255,255,0.2); color: #ffffff;"><span class="pill-dot" style="background: #ffffff;"></span> Talent Network</div>
+                    <h3 style="color: #ffffff; font-size: 2rem; margin-bottom: 12px;">გაგვიზიარეთ თქვენი პროფესიული გამოცდილება</h3>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">გამოგვიგზავნეთ CV და შესაბამისი ვაკანსიის გაჩენისას დაგიკავშირდებით.</p>
                 </div>
-                <div>
-                    <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20CV-ს%20გამოგზავნა" target="_blank" class="btn" style="background: #25d366; color: #ffffff;"><i class="fa-brands fa-whatsapp"></i> WhatsApp-ით გაგზავნა</a>
-                </div>
+                <a href="mailto:career.tpn.ge@gmail.com?subject=CV%20-%20TPN" class="btn-box" style="background: #ffffff; color: var(--brand-green); border-color: #ffffff;">
+                    <span>CV-ს გაზიარება</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- მოძრავი პარტნიორების ზოლი კონტაქტის ზემოთ -->
+    <!-- Partners Marquee -->
     <div class="partners-slider">
         <div class="partners-track">
-            <div class="partner-item">Talent Partner Network</div>
-            <div class="partner-item">Executive Search</div>
-            <div class="partner-item">HR Consulting</div>
-            <div class="partner-item">Leadership Development</div>
-            <div class="partner-item">Organizational Culture</div>
-            <div class="partner-item">Talent Partner Network</div>
-            <div class="partner-item">Executive Search</div>
-            <div class="partner-item">HR Consulting</div>
-            <div class="partner-item">Leadership Development</div>
-            <div class="partner-item">Organizational Culture</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Talent Partner Network</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Executive Search</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> HR Consulting</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Leadership Development</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Organizational Culture</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Talent Partner Network</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Executive Search</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> HR Consulting</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Leadership Development</div>
+            <div class="partner-item"><i class="fa-solid fa-circle"></i> Organizational Culture</div>
         </div>
     </div>
 
-    <!-- კონტაქტი და ჯავშანი -->
+    <!-- კონტაქტი -->
     <section id="contact" class="section">
         <div class="container">
             <div class="sec-head" id="meeting">
-                <span class="pill">კონტაქტი</span>
-                <h2 class="sec-title">დაგეგმეთ გაცნობითი საუბარი</h2>
+                <div class="pill"><span class="pill-dot"></span> კონტაქტი</div>
+                <h2 class="sec-title">დაგეგმეთ <span>გაცნობითი საუბარი</span></h2>
                 <p class="sec-sub">შეავსეთ ფორმა ან უშუალოდ მოგვწერეთ WhatsApp-ში.</p>
             </div>
 
             <div class="contact-grid">
                 <div class="contact-card">
-                    <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 8px; color: var(--brand-green);">სწრაფი დაკავშირება</h3>
-                    <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 18px;">მოგვწერეთ პირდაპირ WhatsApp-ში ან დაგვიკავშირდით ნომერზე.</p>
+                    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px; color: var(--ink);">სწრაფი დაკავშირება</h3>
+                    <p style="font-size: 14px; color: var(--muted); margin-bottom: 20px;">მოგვწერეთ პირდაპირ WhatsApp-ში ან დაგვიკავშირდით ნომერზე.</p>
                     
-                    <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20კონსულტაცია" target="_blank" class="btn btn-solid" style="background: #25d366; color: #fff; border-color: #25d366; width: 100%; justify-content: center; margin-bottom: 12px; border-radius: 50px;">
-                        <i class="fa-brands fa-whatsapp"></i> მოგვწერეთ WhatsApp-ში ↗
+                    <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20კონსულტაცია" target="_blank" class="btn-box primary" style="width: 100%; justify-content: center; background: #25d366; border-color: #25d366;">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i>
+                        <span>მოგვწერეთ WhatsApp-ში</span>
                     </a>
 
                     <div class="contact-links">
@@ -1148,10 +1351,10 @@
                             <textarea id="fNeed" rows="3" class="f-input" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-solid" style="background: #25d366; color: #fff; border-color: #25d366; width: 100%; justify-content: center; border-radius: 50px;">
-                            <i class="fa-brands fa-whatsapp"></i> ჯავშნის გაგზავნა WhatsApp-ში ↗
+                        <button type="submit" class="btn-box primary" style="width: 100%; justify-content: center; border: none;">
+                            <span>ჯავშნის გაგზავნა WhatsApp-ში</span>
+                            <i class="fa-brands fa-whatsapp"></i>
                         </button>
-                        <p style="font-size: 11.5px; color: var(--muted); margin-top: 8px; text-align: center;">ღილაკზე დაჭერით ფორმა ავტომატურად გადაიტანს თქვენს შეტყობინებას WhatsApp-ში.</p>
                     </form>
                 </div>
             </div>
@@ -1161,11 +1364,11 @@
     <footer>
         <div class="container foot-bar">
             <div><strong>TPN</strong> — Talent Partner Network</div>
-            <div>© 2026 • <a href="tel:+995577440711" style="color: var(--brand-green); text-decoration: none;">+995 577 44 07 11</a></div>
+            <div>© 2026 • <a href="tel:+995577440711" style="color: var(--brand-green); font-weight: 700; text-decoration: none;">+995 577 44 07 11</a></div>
         </div>
     </footer>
 
-    <!-- Modal for Full Member Bio -->
+    <!-- Modal -->
     <div class="modal-backdrop" id="memberModal" onclick="closeModalOnBackdrop(event)">
         <div class="modal-box">
             <button class="modal-close" onclick="closeMemberModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -1174,16 +1377,17 @@
                     <img id="modalImg" src="" alt="">
                 </div>
                 <div>
-                    <h3 id="modalName" style="font-size: 19px; font-weight: 800; color: var(--brand-green);"></h3>
-                    <div class="role-text" id="modalRole"></div>
+                    <h3 id="modalName" style="font-size: 19px; font-weight: 800; color: var(--ink);"></h3>
+                    <div class="role-label" id="modalRole" style="margin-bottom: 0;"></div>
                 </div>
             </div>
             <div class="modal-content" id="modalBio"></div>
             
             <div style="padding-top: 20px; border-top: 1px solid var(--border); text-align: center;">
                 <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 12px;">გსურთ ამ ექსპერტთან კონსულტაცია?</p>
-                <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20კონსულტაცია" target="_blank" class="btn btn-solid" style="background: #25d366; color: #fff; border-color: #25d366; width: 100%; justify-content: center; border-radius: 50px;">
-                    <i class="fa-brands fa-whatsapp"></i> დაჯავშნეთ შეხვედრა WhatsApp-ით ↗
+                <a href="https://wa.me/995577440711?text=გამარჯობა,%20მსურს%20კონსულტაცია" target="_blank" class="btn-box primary" style="width: 100%; justify-content: center; background: #25d366; border-color: #25d366;">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>დაჯავშნეთ შეხვედრა WhatsApp-ით</span>
                 </a>
             </div>
         </div>
@@ -1194,30 +1398,30 @@
             natia: {
                 name: 'ნათია სირაძე',
                 role: 'HR ბიზნეს პარტნიორი',
-                img: 'image/natia siradze.jpg',
+                img: 'image/image2.jpeg',
                 bio: [
-                    'არის SPHRi® (Senior Professional in Human Resources - International) მაღალი საერთაშორისო კვალიფიკაციის მქონე HR ლიდერი.',
-                    'აქვს მმართველობითი და ლიდერული გამოცდილება საცალო ვაჭრობის სექტორსა და მსხვილ საერთაშორისო ბიზნესგარემოში.',
+                    'SPHRi® (Senior Professional in Human Resources - International) საერთაშორისო კვალიფიკაციის მქონე HR ლიდერი.',
+                    'აქვს რეკრუტინგისა და ადამიანური რესურსების მართვის გამოცდილება.',
                     'სპეციალიზებულია ადამიანური რესურსების სტრატეგიული მართვის, შესრულების შეფასების სისტემებისა და ორგანიზაციული კულტურის გაძლიერების მიმართულებით.'
                 ]
             },
             shorena: {
                 name: 'შორენა ქუთათელაძე',
                 role: 'HR ბიზნეს პარტნიორი',
-                img: 'image/shorena kutateladze.jpg',
+                img: 'image/image1.jpeg',
                 bio: [
-                    'არის გამოცდილი HR ლიდერი, სოციალური ფსიქოლოგიის მაგისტრი, ერიქსონის ქოუჩინგის სკოლის სერტიფიცირებული ქოუჩი და პროფესიონალი კარიერის კონსულტანტი.',
-                    'პროფესიულ საქმიანობაში წარმატებით აერთიანებს ადამიანური რესურსების მართვის, თანამედროვე ქოუჩინგისა და ლიდერების განვითარების საუკეთესო პრაქტიკებს.',
-                    'აქტიურად კითხულობს ლექციებს ორგანიზაციული ქცევისა და ლიდერობის მიმართულებით ბიზნესისა და ტექნოლოგიების უნივერსიტეტში (BTU).'
+                    'HR ლიდერი, სოციალური ფსიქოლოგიის მაგისტრი, ერიქსონის ქოუჩინგის სკოლის ქოუჩი და სერტიფიცირებული კარიერის კონსულტანტი.',
+                    'აქვს რეკრუტინგისა და ადამიანური რესურსების მართვის გამოცდილება. საქმიანობაში აერთიანებს HR, ქოუჩინგისა და კარიერული განვითარების პრაქტიკას.',
+                    'ბიზნესისა და ტექნოლოგიების უნივერსიტეტში კითხულობს ლექციებს ორგანიზაციული ქცევის თემაზე.'
                 ]
             },
             mariam: {
                 name: 'მარიამ ედიბერიძე',
                 role: 'ბიზნეს პარტნიორი - L&D მიმართულების ლიდი',
-                img: 'image/mariam ediberidze.jpg',
+                img: 'image/image0.jpeg',
                 bio: [
                     'არის ორგანიზაციული ფსიქოლოგიის მაგისტრი, CPD და ICF საერთაშორისო აკრედიტაციის მქონე პროფესიონალი ქოუჩი, რბილი უნარების (Soft Skills) ტრენერი და ფასილიტატორი.',
-                    'სპეციალიზებულია არტ-თერაპიისა და კარიერული კონსულტაციის მეთოდოლოგიებში, ასევე მენეჯერების გადამზადების საავტორო და პრაქტიკული პროგრამების შექმნაში.',
+                    'აქვს რეკრუტინგისა და ადამიანური რესურსების მართვის გამოცდილება. საქმიანობაში აერთიანებს HR, ქოუჩინგისა და კარიერული განვითარების პრაქტიკას.',
                     'მუშაობს მმართველობითი კომპეტენციების, გუნდური კომუნიკაციისა და ინდივიდუალური ქოუჩინგის განვითარებაზე, ატარებს ღრმა პროფესიულ სესიებს.'
                 ]
             }
